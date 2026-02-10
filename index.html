@@ -1,571 +1,213 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Matriz Ciudadana del Voto Responsable (Perú 2026)</title>
-  <meta name="description" content="Herramienta neutral para evaluar candidatos con criterios cívicos. No indica por quién votar: ayuda a decidir con criterio." />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Matriz Ciudadana del Voto Responsable</title>
+
   <style>
-    :root{
-      --bg:#0b1020;
-      --card:#111a33;
-      --muted:#9fb0d0;
-      --text:#e9efff;
-      --line:rgba(255,255,255,.08);
-      --accent:#a7c7ff;
-      --ok:#38d39f;
-      --mid:#ffd166;
-      --bad:#ff5c7a;
-      --btn:#1b2a54;
-      --btn2:#162246;
-      --shadow: 0 10px 30px rgba(0,0,0,.35);
-      --radius:16px;
-      --maxw: 980px;
-      --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono","Courier New", monospace;
-      --sans: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      background: #f5f7fb;
+      color: #1a1a1a;
     }
 
-    *{box-sizing:border-box}
-    body{
-      margin:0;
-      background: radial-gradient(1200px 800px at 20% 0%, #182457 0%, var(--bg) 55%, #070a14 100%);
-      color:var(--text);
-      font-family: var(--sans);
-      line-height:1.45;
-    }
-    a{color:var(--accent); text-decoration:none}
-    a:hover{text-decoration:underline}
-
-    header{
-      max-width:var(--maxw);
-      margin: 28px auto 0;
-      padding: 0 18px;
-    }
-    .brand{
-      display:flex; gap:12px; align-items:center; justify-content:space-between; flex-wrap:wrap;
-    }
-    .logo{
-      display:flex; gap:10px; align-items:center;
-    }
-    .mark{
-      width:42px; height:42px; border-radius:12px;
-      background: linear-gradient(135deg, rgba(167,199,255,.25), rgba(56,211,159,.18));
-      border:1px solid var(--line);
-      box-shadow: var(--shadow);
-      display:grid; place-items:center;
-      font-weight:800;
-      letter-spacing:.5px;
-    }
-    .titlewrap h1{
-      margin:0;
-      font-size: clamp(20px, 2.6vw, 28px);
-      letter-spacing:.2px;
-    }
-    .titlewrap p{
-      margin:4px 0 0;
-      color:var(--muted);
-      max-width: 70ch;
-      font-size: 14.5px;
+    header {
+      background: #0b3d91;
+      color: white;
+      padding: 30px 20px;
+      text-align: center;
     }
 
-    main{
-      max-width:var(--maxw);
-      margin: 16px auto 80px;
-      padding: 0 18px;
+    h1 {
+      margin: 0;
+      font-size: 28px;
     }
 
-    .grid{
-      display:grid;
-      grid-template-columns: 1.25fr .75fr;
-      gap:16px;
-      align-items:start;
+    .container {
+      max-width: 900px;
+      margin: auto;
+      padding: 30px 20px;
+      background: white;
     }
 
-    @media (max-width: 920px){
-      .grid{grid-template-columns: 1fr;}
+    .criterion {
+      margin-bottom: 25px;
     }
 
-    .card{
-      background: rgba(17,26,51,.78);
-      border:1px solid var(--line);
-      border-radius: var(--radius);
-      box-shadow: var(--shadow);
-      overflow:hidden;
+    .criterion label {
+      font-weight: bold;
+      display: block;
+      margin-bottom: 8px;
     }
 
-    .card .hd{
-      padding: 16px 16px 12px;
-      border-bottom: 1px solid var(--line);
-      display:flex;
-      align-items:flex-start;
-      justify-content:space-between;
-      gap:12px;
-      flex-wrap:wrap;
-    }
-    .card .hd h2{
-      margin:0;
-      font-size: 16px;
-      letter-spacing:.2px;
-    }
-    .chip{
-      font-family: var(--mono);
-      font-size: 12px;
-      color: var(--muted);
-      border:1px solid var(--line);
-      padding: 6px 10px;
-      border-radius: 999px;
-      background: rgba(255,255,255,.03);
-      white-space:nowrap;
-    }
-
-    .card .bd{padding: 16px;}
-
-    .row{
-      display:grid;
-      grid-template-columns: 1fr auto;
-      gap: 12px;
-      align-items:center;
-      padding: 14px 0;
-      border-bottom: 1px solid var(--line);
-    }
-    .row:last-child{border-bottom:none; padding-bottom: 0;}
-    .k h3{
-      margin:0 0 6px;
-      font-size: 14.5px;
-      letter-spacing:.2px;
-      display:flex;
-      align-items:center;
-      gap:8px;
-      flex-wrap:wrap;
-    }
-    .k p{
-      margin:0;
-      color: var(--muted);
-      font-size: 13.5px;
-      max-width: 70ch;
-    }
-
-    .control{
-      display:flex;
-      align-items:center;
-      gap: 10px;
-      min-width: 270px;
-      justify-content:flex-end;
-      flex-wrap:wrap;
-    }
-    .val{
-      width: 52px;
-      text-align:center;
-      font-family: var(--mono);
+    .score {
       font-size: 14px;
-      padding: 8px 10px;
+      color: #555;
+      margin-top: 5px;
+    }
+
+    .result-box {
+      background: #eef3ff;
+      padding: 20px;
       border-radius: 10px;
-      border:1px solid var(--line);
-      background: rgba(255,255,255,.03);
-    }
-    input[type="range"]{
-      width: 170px;
-      accent-color: #a7c7ff;
-    }
-    .hint{
-      font-size: 12px;
-      color: var(--muted);
-      margin-top: 8px;
+      text-align: center;
+      margin-top: 30px;
     }
 
-    .side{
-      position:sticky;
-      top: 14px;
-    }
-    @media (max-width: 920px){
-      .side{position:static;}
+    .total {
+      font-size: 42px;
+      font-weight: bold;
+      color: #0b3d91;
     }
 
-    .scoreBox{
-      padding: 18px 16px;
-    }
-    .scoreTop{
-      display:flex;
-      align-items:flex-start;
-      justify-content:space-between;
-      gap:12px;
-      flex-wrap:wrap;
-    }
-    .scoreTop h2{margin:0; font-size:16px;}
-    .bigScore{
-      font-family: var(--mono);
-      font-size: 40px;
-      line-height: 1;
-      letter-spacing: .5px;
-      margin: 10px 0 0;
-    }
-    .bigScore small{
-      font-size: 14px;
-      color: var(--muted);
-      font-family: var(--sans);
-      margin-left: 6px;
-    }
-    .badge{
-      display:inline-flex;
-      align-items:center;
-      gap:8px;
-      border-radius: 999px;
-      padding: 8px 12px;
-      border:1px solid var(--line);
-      background: rgba(255,255,255,.03);
-      font-weight:600;
-      letter-spacing:.2px;
-    }
-    .dot{
-      width:10px; height:10px; border-radius:50%;
-      background: var(--mid);
-      box-shadow: 0 0 0 4px rgba(255,255,255,.03);
+    .classification {
+      font-size: 18px;
+      margin-top: 10px;
+      font-weight: bold;
     }
 
-    .actions{
-      display:grid;
-      gap: 10px;
-      margin-top: 14px;
-    }
-    button{
-      cursor:pointer;
-      font: inherit;
-      border: 1px solid var(--line);
-      color: var(--text);
-      background: linear-gradient(180deg, rgba(27,42,84,.85), rgba(22,34,70,.85));
-      padding: 10px 12px;
-      border-radius: 12px;
-      box-shadow: 0 8px 18px rgba(0,0,0,.22);
-      transition: transform .06s ease, filter .12s ease;
-      text-align:left;
-    }
-    button:hover{filter: brightness(1.06);}
-    button:active{transform: translateY(1px);}
-    button.secondary{
-      background: rgba(255,255,255,.03);
-    }
-
-    .field{
-      display:grid;
-      gap:6px;
-      margin: 10px 0 2px;
-    }
-    label{
-      color: var(--muted);
-      font-size: 12.5px;
-    }
-    input[type="text"]{
-      width:100%;
-      padding: 10px 12px;
-      border-radius: 12px;
-      border:1px solid var(--line);
-      background: rgba(255,255,255,.03);
-      color: var(--text);
-      outline:none;
-    }
-    input[type="text"]::placeholder{color: rgba(159,176,208,.6);}
-
-    .note{
-      padding: 14px 16px;
-      border-top: 1px solid var(--line);
-      color: var(--muted);
-      font-size: 13px;
-    }
-    .footer{
-      max-width: var(--maxw);
-      margin: 18px auto 0;
-      padding: 0 18px 22px;
-      color: var(--muted);
-      font-size: 12.5px;
-    }
-    .kbd{
-      font-family: var(--mono);
-      font-size: 12px;
-      padding: 2px 6px;
-      border:1px solid var(--line);
+    button {
+      margin-top: 15px;
+      padding: 12px 20px;
+      border: none;
       border-radius: 8px;
-      background: rgba(255,255,255,.03);
+      background: #0b3d91;
+      color: white;
+      font-size: 16px;
+      cursor: pointer;
     }
 
-    .toast{
-      position: fixed;
-      left: 50%;
-      bottom: 18px;
-      transform: translateX(-50%);
-      background: rgba(17,26,51,.92);
-      border:1px solid var(--line);
-      border-radius: 999px;
-      padding: 10px 14px;
-      color: var(--text);
-      box-shadow: var(--shadow);
-      opacity: 0;
-      pointer-events:none;
-      transition: opacity .2s ease, transform .2s ease;
-      font-size: 13px;
+    button:hover {
+      background: #092e6c;
     }
-    .toast.show{
+
+    /* ====== SECCIÓN LOGOS ====== */
+    .logos {
+      margin-top: 60px;
+      text-align: center;
+    }
+
+    .logos h2 {
+      margin-bottom: 25px;
+      color: #0b3d91;
+    }
+
+    .logos-container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: center;
+      gap: 30px;
+    }
+
+    .logos-container img {
+      height: 60px;
+      opacity: 0.85;
+      transition: 0.3s;
+    }
+
+    .logos-container img:hover {
       opacity: 1;
-      transform: translateX(-50%) translateY(-2px);
+      transform: scale(1.05);
+    }
+
+    footer {
+      text-align: center;
+      padding: 25px;
+      font-size: 14px;
+      color: #666;
     }
   </style>
 </head>
 
 <body>
-  <header>
-    <div class="brand">
-      <div class="logo">
-        <div class="mark">MV</div>
-        <div class="titlewrap">
-          <h1>Matriz Ciudadana del Voto Responsable</h1>
-          <p>Herramienta neutral para comparar candidaturas con criterios cívicos. No indica por quién votar: ayuda a decidir con criterio.</p>
-        </div>
-      </div>
-      <span class="chip">Perú 2026 · Puntaje 0–100</span>
+
+<header>
+  <h1>Matriz Ciudadana del Voto Responsable</h1>
+  <p>Herramienta educativa para decidir con criterio</p>
+</header>
+
+<div class="container">
+
+  <div class="criterion">
+    <label>1. Integridad y ética (0–20)</label>
+    <input type="range" min="0" max="20" value="0" oninput="updateTotal()">
+  </div>
+
+  <div class="criterion">
+    <label>2. Experiencia y capacidad de gestión (0–20)</label>
+    <input type="range" min="0" max="20" value="0" oninput="updateTotal()">
+  </div>
+
+  <div class="criterion">
+    <label>3. Propuesta de país viable (0–20)</label>
+    <input type="range" min="0" max="20" value="0" oninput="updateTotal()">
+  </div>
+
+  <div class="criterion">
+    <label>4. Compromiso democrático (0–20)</label>
+    <input type="range" min="0" max="20" value="0" oninput="updateTotal()">
+  </div>
+
+  <div class="criterion">
+    <label>5. Servicio real al país (0–20)</label>
+    <input type="range" min="0" max="20" value="0" oninput="updateTotal()">
+  </div>
+
+  <div class="result-box">
+    <div class="total" id="total">0</div>
+    <div class="classification" id="classification">Sin evaluar</div>
+    <button onclick="shareWhatsApp()">Compartir por WhatsApp</button>
+  </div>
+
+  <!-- ====== LOGOS DE ALIADOS ====== -->
+  <div class="logos">
+    <h2>Aliados que apoyan el voto informado</h2>
+
+    <div class="logos-container">
+      <img src="img/logo1.png" alt="Aliado 1">
+      <img src="img/logo2.png" alt="Aliado 2">
+      <img src="img/logo3.png" alt="Aliado 3">
     </div>
-  </header>
+  </div>
 
-  <main>
-    <div class="grid">
-      <section class="card" aria-label="Formulario de evaluación">
-        <div class="hd">
-          <h2>Evaluación</h2>
-          <span class="chip">0–20 por criterio · Total /100</span>
-        </div>
-        <div class="bd">
-          <div class="field">
-            <label for="candidate">Nombre del candidato (opcional)</label>
-            <input id="candidate" type="text" placeholder="Ej.: Candidato A" maxlength="80" />
-          </div>
+</div>
 
-          <div class="row">
-            <div class="k">
-              <h3>1) Integridad y ética <span class="chip">peso alto</span></h3>
-              <p>Historial ético, transparencia, coherencia pública. Evita “todo vale”.</p>
-              <div class="hint">Guía: 0–5 muy cuestionado · 6–10 dudas · 11–15 aceptable · 16–20 íntegro</div>
-            </div>
-            <div class="control">
-              <input id="r1" type="range" min="0" max="20" step="1" value="0" />
-              <div class="val" id="v1">0</div>
-            </div>
-          </div>
+<footer>
+  © 2026 – Iniciativa ciudadana por el voto informado
+</footer>
 
-          <div class="row">
-            <div class="k">
-              <h3>2) Experiencia y capacidad de gestión</h3>
-              <p>Resultados previos, manejo de equipos, capacidad de ejecutar y gobernar.</p>
-              <div class="hint">Guía: 0–5 sin exp. · 6–10 limitada · 11–15 sólida · 16–20 probada</div>
-            </div>
-            <div class="control">
-              <input id="r2" type="range" min="0" max="20" step="1" value="0" />
-              <div class="val" id="v2">0</div>
-            </div>
-          </div>
+<script>
+function updateTotal() {
+  const ranges = document.querySelectorAll("input[type='range']");
+  let total = 0;
 
-          <div class="row">
-            <div class="k">
-              <h3>3) Propuesta de país viable</h3>
-              <p>Plan claro, coherente y financiable (no solo slogans).</p>
-              <div class="hint">Guía: 0–5 populismo · 6–10 general · 11–15 estructurado · 16–20 técnico</div>
-            </div>
-            <div class="control">
-              <input id="r3" type="range" min="0" max="20" step="1" value="0" />
-              <div class="val" id="v3">0</div>
-            </div>
-          </div>
+  ranges.forEach(r => {
+    total += Number(r.value || 0);
+  });
 
-          <div class="row">
-            <div class="k">
-              <h3>4) Compromiso democrático e institucional</h3>
-              <p>Respeto a la Constitución, instituciones y libertades civiles.</p>
-              <div class="hint">Guía: 0–5 autoritario · 6–10 ambiguo · 11–15 respeta · 16–20 defiende</div>
-            </div>
-            <div class="control">
-              <input id="r4" type="range" min="0" max="20" step="1" value="0" />
-              <div class="val" id="v4">0</div>
-            </div>
-          </div>
+  const totalEl = document.getElementById("total");
+  const classEl = document.getElementById("classification");
 
-          <div class="row">
-            <div class="k">
-              <h3>5) Servicio real al país</h3>
-              <p>Aportes previos verificables: impacto social, profesional o institucional.</p>
-              <div class="hint">Guía: 0–5 sin aporte · 6–10 menor · 11–15 claro · 16–20 impacto</div>
-            </div>
-            <div class="control">
-              <input id="r5" type="range" min="0" max="20" step="1" value="0" />
-              <div class="val" id="v5">0</div>
-            </div>
-          </div>
-        </div>
+  if (totalEl) totalEl.innerText = total;
 
-        <div class="note">
-          <b>Nota:</b> Esta herramienta es educativa y comparativa. Sugiere revisar fuentes públicas y contrastar información antes de calificar.
-        </div>
-      </section>
+  let text = "No recomendable";
+  if (total >= 80) text = "Muy sólido";
+  else if (total >= 60) text = "Aceptable con reservas";
+  else if (total >= 40) text = "Riesgo alto";
 
-      <aside class="card side" aria-label="Resultados y acciones">
-        <div class="scoreBox">
-          <div class="scoreTop">
-            <div>
-              <h2>Resultado</h2>
-              <div class="bigScore"><span id="total">0</span><small>/100</small></div>
-            </div>
-            <div class="badge" id="badge">
-              <span class="dot" id="dot"></span>
-              <span id="label">—</span>
-            </div>
-          </div>
+  if (classEl) classEl.innerText = text;
+}
 
-          <div class="hint" style="margin-top:10px">
-            Interpretación: <b>80–100</b> sólido · <b>60–79</b> aceptable · <b>40–59</b> riesgo alto · <b>0–39</b> no recomendable
-          </div>
+function shareWhatsApp() {
+  const totalEl = document.getElementById("total");
+  const total = totalEl ? totalEl.innerText : "0";
 
-          <div class="actions">
-            <button id="copyBtn" type="button" title="Copiar el resultado al portapapeles">
-              Copiar resultado <span class="kbd">Ctrl</span> + <span class="kbd">C</span>
-            </button>
+  const message = `Evalué un candidato con la Matriz Ciudadana del Voto Responsable. Puntaje: ${total}/100\n\n${window.location.href}`;
 
-            <button id="waBtn" type="button" class="secondary" title="Compartir por WhatsApp">
-              Compartir por WhatsApp
-            </button>
-
-            <button id="resetBtn" type="button" class="secondary" title="Reiniciar puntajes">
-              Reiniciar puntajes
-            </button>
-          </div>
-
-          <div class="hint" style="margin-top:12px">
-            Tip: Para compartir como imagen en WhatsApp, también puedes hacer una captura de pantalla del “Resultado”.
-          </div>
-        </div>
-
-        <div class="note" id="summaryNote" style="font-family: var(--mono); font-size: 12px;">
-          Integridad: 0 · Gestión: 0 · Propuesta: 0 · Democracia: 0 · Servicio: 0
-        </div>
-      </aside>
-    </div>
-
-    <div class="footer">
-      <div style="margin-top:16px; border-top:1px solid var(--line); padding-top:14px;">
-        <b>Cómo publicar (Opción A, sin servidor):</b> guarda este archivo como <span class="kbd">index.html</span> y súbelo a
-        <b>Vercel</b>, <b>Netlify</b> o <b>GitHub Pages</b>. Es estático: no requiere backend.
-      </div>
-    </div>
-  </main>
-
-  <div class="toast" id="toast">Copiado ✅</div>
-
-  <script>
-    const sliders = [
-      { r: document.getElementById("r1"), v: document.getElementById("v1") },
-      { r: document.getElementById("r2"), v: document.getElementById("v2") },
-      { r: document.getElementById("r3"), v: document.getElementById("v3") },
-      { r: document.getElementById("r4"), v: document.getElementById("v4") },
-      { r: document.getElementById("r5"), v: document.getElementById("v5") },
-    ];
-
-    const totalEl = document.getElementById("total");
-    const labelEl = document.getElementById("label");
-    const dotEl = document.getElementById("dot");
-    const badgeEl = document.getElementById("badge");
-    const candidateEl = document.getElementById("candidate");
-    const summaryNote = document.getElementById("summaryNote");
-    const toast = document.getElementById("toast");
-
-    const copyBtn = document.getElementById("copyBtn");
-    const waBtn = document.getElementById("waBtn");
-    const resetBtn = document.getElementById("resetBtn");
-
-    function classify(score){
-      // returns {label, color}
-      if (score >= 80) return { label: "Muy sólido", color: "var(--ok)" };
-      if (score >= 60) return { label: "Aceptable con reservas", color: "var(--mid)" };
-      if (score >= 40) return { label: "Riesgo alto", color: "var(--bad)" };
-      return { label: "No recomendable", color: "var(--bad)" };
-    }
-
-    function getScores(){
-      return sliders.map(s => Number(s.r.value));
-    }
-
-    function update(){
-      const scores = getScores();
-      scores.forEach((n, i) => sliders[i].v.textContent = String(n));
-
-      const total = scores.reduce((a,b)=>a+b,0);
-      totalEl.textContent = String(total);
-
-      const cls = classify(total);
-      labelEl.textContent = cls.label;
-      dotEl.style.background = cls.color;
-
-      // Slight emphasis frame color based on state (subtle)
-      badgeEl.style.borderColor = "rgba(255,255,255,.10)";
-
-      summaryNote.textContent =
-        `Integridad: ${scores[0]} · Gestión: ${scores[1]} · Propuesta: ${scores[2]} · Democracia: ${scores[3]} · Servicio: ${scores[4]}`;
-    }
-
-    function buildShareText(){
-      const name = (candidateEl.value || "").trim();
-      const scores = getScores();
-      const total = scores.reduce((a,b)=>a+b,0);
-      const cls = classify(total).label;
-
-      const title = "Matriz Ciudadana del Voto Responsable (Perú 2026)";
-      const who = name ? `Candidato: ${name}\n` : "";
-      const breakdown =
-        `Integridad/Ética: ${scores[0]}/20\n` +
-        `Gestión: ${scores[1]}/20\n` +
-        `Propuesta: ${scores[2]}/20\n` +
-        `Democracia: ${scores[3]}/20\n` +
-        `Servicio al país: ${scores[4]}/20\n`;
-
-      const footer = "\nHerramienta educativa y neutral. Compara con criterio.";
-      return `${title}\n${who}${breakdown}TOTAL: ${total}/100 · ${cls}${footer}`;
-    }
-
-    function showToast(msg){
-      toast.textContent = msg;
-      toast.classList.add("show");
-      setTimeout(()=>toast.classList.remove("show"), 1100);
-    }
-
-    sliders.forEach(s => s.r.addEventListener("input", update));
-    candidateEl.addEventListener("input", () => { /* keep UI snappy */ });
-
-    copyBtn.addEventListener("click", async () => {
-      const text = buildShareText();
-      try{
-        await navigator.clipboard.writeText(text);
-        showToast("Copiado ✅");
-      }catch(e){
-        // Fallback
-        const ta = document.createElement("textarea");
-        ta.value = text;
-        document.body.appendChild(ta);
-        ta.select();
-        document.execCommand("copy");
-        document.body.removeChild(ta);
-        showToast("Copiado ✅");
-      }
-    });
-
-    waBtn.addEventListener("click", () => {
-      const text = buildShareText();
-      const url = "https://wa.me/?text=" + encodeURIComponent(text);
-      window.open(url, "_blank", "noopener,noreferrer");
-    });
-
-    resetBtn.addEventListener("click", () => {
-      sliders.forEach(s => s.r.value = 0);
-      candidateEl.value = "";
-      update();
-      showToast("Reiniciado");
-    });
-
-    // init
-    update();
-  </script>
-</body>
-</html>
+  const url = `https://wa.me/?text=${encodeURIComponent(message)}`;
+  window.open(url, "_blank");
+}
+</script>
